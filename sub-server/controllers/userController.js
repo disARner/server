@@ -2,7 +2,6 @@ const { User } = require('../models')
 const { getToken, comparePassword } = require('../helpers')
 class UserController {
   static async register (req,res,next) {
-    console.log(req.body)
     try {
       const { username, password, email } = req.body
       let { role } = req.body
@@ -12,7 +11,7 @@ class UserController {
       const data = await User.create({
         username, password, email, role
       })
-      res.status(201).json({ message: 'Success Register' })
+      res.status(201).json({ status: 201, message: 'Success Register' })
     }
     catch (err) {
       next(err)
@@ -20,6 +19,7 @@ class UserController {
   }
 
   static async login (req,res,next) {
+    console.log(req.body,"<<<<<<<<<<<<<<<<< USER CONTROLLER LOGIN")
     try {
       const { password, email } = req.body
       
