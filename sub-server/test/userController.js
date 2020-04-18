@@ -36,63 +36,65 @@ suite('testing User', () => {
       })
     })
   
-    // describe('Error Register', () => {
+    describe('Error Register', () => {
       
-    //   it('Should return username has already been used if username has already in database', () => {
+      it('Should return username has already been used if username has already in database', () => {
   
-    //   beforeEach((done) => {
-    //     User.create({ email: data.email, password: data.password, username: data.username, role: 'user' })
-    //     .then(_ => done())
-    //     .catch(err => done(err))
-    //   })
+      beforeEach((done) => {
+        console.log(data,"<<<<<<<<<<< DATA")
+        User.create({ email: data.email, password: data.password, username: data.username, role: 'user' })
+        .then(_ => done())
+        .catch(err => done(err))
+      })
   
-    //     data.email = 'wawan@mail.com'
-    //     request(app)
-    //     .post('/register')
-    //     .send(data)
-    //     .expect(400)
-    //     .end((err,res) => {
-    //       console.log(err,"<<<<< ERR ATAS")
-    //       console.log(res.body,"<<<< RB ATAS")
-    //       expect(res.body.message[0],"username has already been used")
-    //       if(err) return err
-    //     })
-    //   })
+        data.email = 'wawan@mail.com'
+        request(app)
+        .post('/register')
+        .send(data)
+        .expect(400)
+        .end((err,res) => {
+          console.log(err,"<<<<< ERR ATAS")
+          console.log(res.body,"<<<< RB ATAS")
+          expect(res.body.message[0],"username has already been used")
+          if(err) return err
+        })
+      })
   
-    //   afterEach((done) => {
-    //     queryInterface.bulkDelete('Users', null, {})
-    //     .then(_ => {
-    //       done()
-    //     })
-    //     .catch(err => done(err))
-    //   })
+      afterEach((done) => {
+        queryInterface.bulkDelete('Users', null, {})
+        .then(_ => {
+          done()
+        })
+        .catch(err => done(err))
+      })
   
-    //   it('Should return email has already been used if email has already in database', async () => {
-        
-    //     data.username = "mamang@mail.com"
-    //     request(app)
-    //     .post('/register')
-    //     .send(data)
-    //     .expect(400)
-    //     .end((err,res) => {
-    //       console.log(data.email)
-    //       console.log(data.username)
-    //       console.log(res.body,"<<<<< BWH")
-    //       console.log(err,"<<<<< ERROR BWH")
-    //       expect(res.body.status, 400)
-    //       expect(res.body.message,"email has already been used")
-    //       if(err) return err
-    //     })
-    //   })
+      it('Should return email has already been used if email has already in database', async () => {
+        data.email = 'wawan@mail.com'
+        data.username = "mamang@mail.com"
+        console.log()
+        request(app)
+        .post('/register')
+        .send(data)
+        .expect(400)
+        .end((err,res) => {
+          console.log(data.email)
+          console.log(data.username)
+          console.log(res.body,"<<<<< BWH")
+          console.log(err,"<<<<< ERROR BWH")
+          expect(res.body.status, 400)
+          expect(res.body.message,"email has already been used")
+          if(err) return err
+        })
+      })
   
-    //   afterEach((done) => {
-    //     queryInterface.bulkDelete('Users', null, {})
-    //     .then(_ => {
-    //       done()
-    //     })
-    //     .catch(err => done(err))
-    //   })
-    // })
+      afterEach((done) => {
+        queryInterface.bulkDelete('Users', null, {})
+        .then(_ => {
+          done()
+        })
+        .catch(err => done(err))
+      })
+    })
     
   })
   

@@ -1,10 +1,9 @@
 let assert = require('assert')
 let { test, describe } = require('mocha')
-const { chai } = require('chai')
 const { sequelize, User } = require('../models')
 const { queryInterface } = sequelize
 
-describe('User Register', () => {
+describe('User DB TEST', () => {
   
   let account = { username: 'admin', email:'admin@mail.com', password:'admin', role:'admin' }
 
@@ -14,14 +13,14 @@ describe('User Register', () => {
     .catch(err => done(err))
   })
   
-  after((done) => {
-    queryInterface.bulkDelete('Users',null,{})
-    .then(_ => done())
-    .catch(err => done(err))
-  })
+  // after((done) => {
+  //   queryInterface.bulkDelete('Users',null,{})
+  //   .then(_ => done())
+  //   .catch(err => done(err))
+  // })
 
-  describe('Success Register', () => { // lempar Success message
-    test('should return data if user success register', async () => {
+  describe('Success add User to DB', () => { // lempar Success message
+    test('should return data if user success create', async () => {
       try {
         let result = await User.create({
           username: account.username,

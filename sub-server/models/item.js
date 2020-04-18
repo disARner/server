@@ -37,12 +37,13 @@ module.exports = (sequelize, DataTypes) => {
               message: 'price cant a negative number'
             })
           }
-          if(typeof value !== 'number') {
+          else if(typeof value !== 'number') {
             next({
               status: 400,
               message: 'price must be a number'
             })
           }
+          else next()
         }
       }
     },
@@ -54,6 +55,16 @@ module.exports = (sequelize, DataTypes) => {
           args: true,
           msg:'stock is required'
         },
+      }
+    },
+    imageUrl: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        notNull: {
+          args: true,
+          msg: 'imageUrl is required'
+        }
       }
     }
   }, {
