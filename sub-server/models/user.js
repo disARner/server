@@ -21,7 +21,7 @@ module.exports = (sequelize, DataTypes) => {
           })
           .then((result) => {
             if(result) {
-              next({status: 400, message: 'username has already been used'})
+              next({status: 500, message: 'username has already been used'})
             } else {
               next()
             }
@@ -48,7 +48,7 @@ module.exports = (sequelize, DataTypes) => {
           })
           .then((result) => {
             if(result) {
-              next({status: 400, message: 'email has already been used'})
+              next({status: 500, message: 'email has already been used'})
             } else {
               next()
             }
