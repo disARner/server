@@ -16,5 +16,4 @@ app.use(routesCartItem)
 app.use(routesCategory)
 app.use(routesItem)
 
-
 module.exports = app
