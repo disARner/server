@@ -1,19 +1,21 @@
-const { User } = require('../models')
+const { User, Cart } = require('../models')
 const { getToken, comparePassword } = require('../helpers')
 class UserController {
   static async register (req,res,next) {
     try {
       const { username, password, email } = req.body
-      let { role } = req.body
-      if (!role) {
-        role = 'user'
-      }
+
       const data = await User.create({
-        username, password, email, role
+        username, password, email, role:'user'
+      })
+
+      const cart = await Cart.create({
+        UserId: data.dataValues.id
       })
       res.status(201).json({ status: 201, message: 'Success Register' })
     }
     catch (err) {
+      // console.log(err,"<<<<<<<<<<<<<<<<<<<<<< ERR CONTROLLER REG")
       next(err)
     }
   }

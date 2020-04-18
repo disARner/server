@@ -5,7 +5,7 @@ const { queryInterface } = sequelize
 
 describe('User DB TEST', () => {
   
-  let account = { username: 'admin', email:'admin@mail.com', password:'admin', role:'admin' }
+  let account = { username: 'admin', email:'admin@mail.com', password:'admin', role:'user' }
 
   afterEach((done) => {
     queryInterface.bulkDelete('Users',null,{})
@@ -30,7 +30,7 @@ describe('User DB TEST', () => {
         })
         assert.equal(result.dataValues.username, "admin")
         assert.equal(result.dataValues.email, "admin@mail.com")
-        assert.equal(result.dataValues.role, "admin")
+        assert.equal(result.dataValues.role, "user")
       }
       catch(err) {
         console.log(err)
