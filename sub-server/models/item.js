@@ -37,12 +37,6 @@ module.exports = (sequelize, DataTypes) => {
               message: 'price cant a negative number'
             })
           }
-          else if(typeof value !== 'number') {
-            next({
-              status: 400,
-              message: 'price must be a number'
-            })
-          }
           else next()
         }
       }
