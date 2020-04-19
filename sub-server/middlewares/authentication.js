@@ -1,20 +1,28 @@
 const helper = require('../helpers')
-const { User } = require('../models')
+const { User, Cart } = require('../models')
 module.exports = {
-  authentication: (req,res,next) => {
-    let {token} = req.headers
-    let decoded = helper.decodedToken(token)
-    User.findOne({
-      where: {
-        id: decoded.id,
-        email: decoded.email
+  authentication: async (req,res,next) => {
+    const {token} = req.headers
+    const decoded = helper.decodedToken(token)
+    try {
+      const user = await User.findOne({
+        where: {
+          id: +decoded.id,
+          email: decoded.email
+        },
+        include: Cart
+      })
+      if (!user) throw {
+        status: 401,
+        message: 'Please login properly'
       }
-    })
-    .then((result) => {
-      next()   
-    }).catch((err) => {
-      next(err)
-    });
-  },
-  authorization
+      else {
+        req.currentUserId = user.id
+        req.currentCart = user.Cart.id
+        next()
+      }
+    } catch (error) {
+      next (error)
+    }
+  }
 }
