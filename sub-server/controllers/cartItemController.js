@@ -56,7 +56,7 @@ class CartItemController {
 
   static async updateCartItem (req,res,next) {
     const CartId = req.currentCart
-    const ItemId = req.params.itemId
+    const ItemId = req.params.id
     const { quantity } = req.body
     try {
       await CartItem.update({ quantity }, 
@@ -75,7 +75,7 @@ class CartItemController {
 
   static async deleteCartItem (req,res,next) {
     const CartId = req.currentCart
-    const ItemId = req.params.itemId
+    const ItemId = req.params.id
     await CartItem.destroy({
       where: {
         ItemId,
