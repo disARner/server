@@ -25,7 +25,7 @@ describe('Cart DB TEST', () => {
   })
 
   describe('Success Add Cart to DB', () => {
-    it('should return a data cart when user success input add cart', (done) => {
+    it.skip('should return a data cart when user success input add cart', (done) => {
       User.findAll()
       .then((result) => {
         console.log(result[0].dataValues.id)
