@@ -1,11 +1,31 @@
+const { Category } = require('../models')
+
 class CategoryController {
-  static findCategory (req,res,next) {
 
+  static async createCategory (req,res,next) {
+    const { name } = req.body
+    const result = await Category.create({
+      name
+    })
+    res.status(201).json(result.dataValues)
   }
 
-  static findByIdCategory (req,res,next) {
-    
+  static async findCategory (req,res,next) {
+    const result = await Category.findAll()
+    res.status(200).json(result)
   }
+
+  static async findByIdCategory (req,res,next) {
+    try{
+      const { id } = req.params
+      const result = await Category.findOne({ where: { id } })
+      res.status(200).json(result.dataValues)
+    }
+    catch(err) {
+      next(err)
+    }
+  }
+
 }
 
 module.exports = CategoryController
