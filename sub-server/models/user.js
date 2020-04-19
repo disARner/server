@@ -6,32 +6,22 @@ module.exports = (sequelize, DataTypes) => {
   class User extends sequelize.Sequelize.Model{}
   User.init({
     username: {
+      isUnique: {
+        msg: 'Username already used'
+      },
       type: DataTypes.STRING,
       allowNull: false,
       validate: {
         notNull: {
           args: true,
           msg:'username is required'
-        },
-        isUnique: (value,next) => {
-          User.findOne({
-            where:{
-              username: value
-            }
-          })
-          .then((result) => {
-            if(result) {
-              next({status: 500, message: 'username has already been used'})
-            } else {
-              next()
-            }
-          }).catch((err) => {
-            next(err)
-          });
         }
       }
     },
     email: {
+      isUnique: {
+        msg: 'Email is already used'
+      },
       type: DataTypes.STRING,
       allowNull: false,
       validate: {
@@ -39,23 +29,6 @@ module.exports = (sequelize, DataTypes) => {
           args: true,
           msg:'email is required'
         },
-        isUnique: (value,next) => {
-          console.log(value)
-          User.findOne({
-            where:{
-              email: value
-            }
-          })
-          .then((result) => {
-            if(result) {
-              next({status: 500, message: 'email has already been used'})
-            } else {
-              next()
-            }
-          }).catch((err) => {
-            next(err)
-          });
-        }
       }
     },
     password: {
@@ -76,6 +49,10 @@ module.exports = (sequelize, DataTypes) => {
           args: true,
           msg:'role is required'
         },
+        isIn: {
+          args: [['admin', 'user']],
+          msg: 'only admin or user role is allowed'
+        }
       }
     }
   }, {
