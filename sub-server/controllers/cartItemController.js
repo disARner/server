@@ -41,7 +41,7 @@ class CartItemController {
   }
 
   static async findCartItem (req,res,next) {
-    const UserId = +req.curentUserId
+    const UserId = +req.currentUserId
     const cart = await Cart.findOne({
       where: { UserId },
       include: [{
@@ -56,7 +56,7 @@ class CartItemController {
 
   static async updateCartItem (req,res,next) {
     const CartId = req.currentCart
-    const ItemId = req.params.id
+    const ItemId = req.params.itemId
     const { quantity } = req.body
     try {
       await CartItem.update({ quantity }, 
@@ -75,7 +75,7 @@ class CartItemController {
 
   static async deleteCartItem (req,res,next) {
     const CartId = req.currentCart
-    const ItemId = req.params.id
+    const ItemId = req.params.itemId
     await CartItem.destroy({
       where: {
         ItemId,
@@ -109,8 +109,8 @@ class CartItemController {
       } else {
         //decreasing all item stock with sequelize function decrement
         const cartItems = data[1]
-        Promise.all(cartItems.map(async cartItem => {
-          await item.decrement(['stock'], {
+        await Promise.all(cartItems.map(async cartItem => {
+          await Item.decrement(['stock'], {
             where: { id: cartItem.ItemId },
             by: cartItem.quantity,
             transaction
@@ -126,7 +126,7 @@ class CartItemController {
   }
 
   static async history (req, res, next) {
-    const UserId = +req.curentUserId
+    const UserId = +req.currentUserId
     try {
       const cart = await Cart.findOne({
         where: { UserId },
