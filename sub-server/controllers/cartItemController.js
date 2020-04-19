@@ -87,11 +87,61 @@ class CartItemController {
   }
 
   static async checkout (req, res, next) {
-
+    const CartId = +req.currentCart
+    const transaction = await sequelize.transaction()
+    try {
+      //changing all cart status to paid
+      const data = await CartItem.update({ isPaid: true },
+        {
+          where: {
+            CartId,
+            isPaid: false
+          },
+          returning: true,
+          transaction
+        })
+        //if no data found in cart
+      if (!data[0]) {
+        throw {
+          status: 400,
+          message: 'No item in Cart'
+        }
+      } else {
+        //decreasing all item stock with sequelize function decrement
+        const cartItems = data[1]
+        Promise.all(cartItems.map(async cartItem => {
+          await item.decrement(['stock'], {
+            where: { id: cartItem.ItemId },
+            by: cartItem.quantity,
+            transaction
+          })
+        }))
+        await transaction.commit()
+        return res.status(200).json({ status: 200, message: 'Checkout successful' })
+      }
+    } catch (error) {
+      await transaction.rollback()
+      next(error)
+    }
   }
 
   static async history (req, res, next) {
-    
+    const UserId = +req.curentUserId
+    try {
+      const cart = await Cart.findOne({
+        where: { UserId },
+        include: [
+          {
+            model: CartItem,
+            where: { isPaid: true },
+            include: Item
+          }
+        ]
+      })
+      res.status(200).json(cart)
+    } catch (error) {
+      next(error)
+    }
   }
 }
 
