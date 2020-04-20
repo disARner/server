@@ -1,4 +1,4 @@
-const { Category } = require('../models')
+const { Category, Item } = require('../models')
 
 class CategoryController {
 
@@ -11,14 +11,14 @@ class CategoryController {
   }
 
   static async findCategory (req,res,next) {
-    const result = await Category.findAll()
+    const result = await Category.findAll({include: [{model: Item}]})
     res.status(200).json(result)
   }
 
   static async findByIdCategory (req,res,next) {
     try{
       const { id } = req.params
-      const result = await Category.findOne({ where: { id } })
+      const result = await Category.findOne({ where: { id }, include: [{model: Item}] })
       res.status(200).json(result.dataValues)
     }
     catch(err) {
