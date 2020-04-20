@@ -5,7 +5,6 @@ module.exports = {
     try {
       const {token} = req.headers
       const decoded = helper.decodedToken(token)
-      console.log(decoded.id,"<<<<<<<<<<< AUTH")
       const user = await User.findOne({
         where: {
           id: +decoded.id,
@@ -13,8 +12,6 @@ module.exports = {
         },
         include: Cart
       })
-      console.log(decoded.id,"<<<< DECODED ID")
-      console.log(user.id,"<<<<<< USER ID")
       if (!user) throw {
         status: 401,
         message: 'Please login properly'
@@ -25,7 +22,6 @@ module.exports = {
         next()
       }
     } catch (error) {
-      console.log(error,"<<<<<<<<<<<<<<<<<<<<<<<<< ERROR AUTHEN")
       next (error)
     }
   }

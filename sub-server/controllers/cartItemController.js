@@ -1,12 +1,8 @@
 const { Cart, Item, CartItem, sequelize } = require('../models')
 class CartItemController {
   static async createCartItem (req,res,next) {
-    console.log('MASOOOOOKKK')
     const { ItemId, quantity } = req.body
     const CartId = +req.currentCart
-    console.log(CartId)
-    console.log(ItemId)
-    console.log(quantity)
     const transaction = await sequelize.transaction()
     try{
       //using findOrCreate sequelize function
@@ -46,7 +42,6 @@ class CartItemController {
 
   static async findCartItem (req,res,next) {
     const UserId = +req.currentUserId
-    console.log(req.currentUserId, "<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<")
     const cart = await Cart.findOne({
       where: { UserId },
       include: [{
@@ -63,7 +58,7 @@ class CartItemController {
     const CartId = req.currentCart
     const ItemId = req.params.itemId
     const { quantity } = req.body
-    try {
+    // try {
       await CartItem.update({ quantity }, 
         {
           where: { 
@@ -73,9 +68,9 @@ class CartItemController {
           }
         })
       res.status(200).json({ status: 200, message: 'Update Cart Successful' })
-    } catch (error) {
-      next(error)
-    }
+    // } catch (error) {
+    //   next(error)
+    // }
   }
 
   static async deleteCartItem (req,res,next) {
@@ -132,7 +127,7 @@ class CartItemController {
 
   static async history (req, res, next) {
     const UserId = +req.currentUserId
-    try {
+    // try {
       const cart = await Cart.findOne({
         where: { UserId },
         include: [
@@ -144,9 +139,9 @@ class CartItemController {
         ]
       })
       res.status(200).json(cart)
-    } catch (error) {
-      next(error)
-    }
+    // } catch (error) {
+    //   next(error)
+    // }
   }
 }
 
