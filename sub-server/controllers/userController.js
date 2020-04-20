@@ -26,28 +26,22 @@ class UserController {
   }
 
   static async login (req,res,next) {
-    // console.log(req.body,"<<<<<<<<<<<<<<<<< USER CONTROLLER LOGIN")
     const { password, email } = req.body
-    try {
-      const data = await User.findOne({
-        where: { email }
-      })
-      if (data) {
-        const { id, username } = data.dataValues
-        const passwordDb = data.dataValues.password
-        let compared = comparePassword(password, passwordDb)
-        if (compared) {
-          let token = getToken({id, email, username})
-          res.status(200).json({ token, username })
-        } else {
-          next({ status: 400, message: 'Email or Password wrong' })
-        }
+    const data = await User.findOne({
+      where: { email }
+    })
+    if (data) {
+      const { id, username } = data.dataValues
+      const passwordDb = data.dataValues.password
+      let compared = comparePassword(password, passwordDb)
+      if (compared) {
+        let token = getToken({id, email, username})
+        res.status(200).json({ token, username })
       } else {
         next({ status: 400, message: 'Email or Password wrong' })
       }
-    }
-    catch (err) {
-      next(err)
+    } else {
+      next({ status: 400, message: 'Email or Password wrong' })
     }
   }
 }

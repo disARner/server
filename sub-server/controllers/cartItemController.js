@@ -1,8 +1,12 @@
 const { Cart, Item, CartItem, sequelize } = require('../models')
 class CartItemController {
   static async createCartItem (req,res,next) {
+    console.log('MASOOOOOKKK')
     const { ItemId, quantity } = req.body
     const CartId = +req.currentCart
+    console.log(CartId)
+    console.log(ItemId)
+    console.log(quantity)
     const transaction = await sequelize.transaction()
     try{
       //using findOrCreate sequelize function
@@ -42,6 +46,7 @@ class CartItemController {
 
   static async findCartItem (req,res,next) {
     const UserId = +req.currentUserId
+    console.log(req.currentUserId, "<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<")
     const cart = await Cart.findOne({
       where: { UserId },
       include: [{
