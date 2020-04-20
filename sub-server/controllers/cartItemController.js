@@ -58,7 +58,7 @@ class CartItemController {
     const CartId = req.currentCart
     const ItemId = req.params.itemId
     const { quantity } = req.body
-    try {
+    // try {
       await CartItem.update({ quantity }, 
         {
           where: { 
@@ -68,9 +68,9 @@ class CartItemController {
           }
         })
       res.status(200).json({ status: 200, message: 'Update Cart Successful' })
-    } catch (error) {
-      next(error)
-    }
+    // } catch (error) {
+    //   next(error)
+    // }
   }
 
   static async deleteCartItem (req,res,next) {
@@ -127,7 +127,7 @@ class CartItemController {
 
   static async history (req, res, next) {
     const UserId = +req.currentUserId
-    try {
+    // try {
       const cart = await Cart.findOne({
         where: { UserId },
         include: [
@@ -139,9 +139,9 @@ class CartItemController {
         ]
       })
       res.status(200).json(cart)
-    } catch (error) {
-      next(error)
-    }
+    // } catch (error) {
+    //   next(error)
+    // }
   }
 }
 

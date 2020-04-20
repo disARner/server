@@ -2,9 +2,9 @@ const helper = require('../helpers')
 const { User, Cart } = require('../models')
 module.exports = {
   authentication: async (req,res,next) => {
-    const {token} = req.headers
-    const decoded = helper.decodedToken(token)
     try {
+      const {token} = req.headers
+      const decoded = helper.decodedToken(token)
       const user = await User.findOne({
         where: {
           id: +decoded.id,
