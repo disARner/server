@@ -181,29 +181,8 @@ describe('testing Cart Item', () => {
           done()
         })
       })
-    })
+    })    
 
-    describe.skip('testing UpdateCartItem error while wrong id', () => {
-      it("should return blm tau", (done) => {
-        let newToken = helper.getToken({ id: this.UsedId, ItemId: 2 })
-        request(app)
-        .put(`/cart/1`)
-        .set('token', newToken)
-        .send({ quantity: 2 })
-        .expect(500)
-        .end((err,res) => {
-          console.log(res.body,"<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< ERROR UPDATE CART ITEM ???????????????????")
-          expect(res.body).property('status')
-          expect(res.body).property('message')
-          expect(res.body.status, 500)
-          expect(res.body.message, "Internal Server Error")
-          done()
-        })
-      })
-    })
-    
-    
-    
     describe('testing checkout', () => {
       it('should return status 200 and message checkout successful', (done) => {
         request(app)
@@ -237,7 +216,6 @@ describe('testing Cart Item', () => {
         .post('/login')
         .send({ username: 'admin2', email: 'admin2@mail.com', password: 'admin2', role: 'admin2' })
         .end((err,res) => {
-          console.log(res.body.token,"<<<<<<<<<<<<< NEW TOKEN ?")
           this.newToken = res.body.token
           done()
         })
@@ -253,33 +231,6 @@ describe('testing Cart Item', () => {
           expect(res.body).property('message')
           expect(res.body.status, 400)
           expect(res.body.message, "No item in Cart")
-          done()
-        })
-      })
-      
-      it.skip('should return idk', (done) => {
-        request(app)
-        .get('/cart/history')
-        .set('token', this.newToken)
-        .end((err,res) => {
-          console.log(res.body,"<<<<<<<<<<<<<<<<<<<<<<<<<< ERROR HISTORY ??????????????????????????")
-          done()
-        })
-      })
-
-      it.skip("should return blm tau", (done) => {
-        // let newToken = helper.getToken({ id: this.UsedId, ItemId: 2 })
-        request(app)
-        .put(`/cart/1`)
-        .set('token', this.newToken)
-        // .send({ quantity: 2 })
-        .expect(500)
-        .end((err,res) => {
-          console.log(res.body,"<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< ERROR UPDATE CART ITEM ???????????????????")
-          expect(res.body).property('status')
-          expect(res.body).property('message')
-          expect(res.body.status, 500)
-          expect(res.body.message, "Internal Server Error")
           done()
         })
       })
