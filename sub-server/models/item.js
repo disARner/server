@@ -65,6 +65,12 @@ module.exports = (sequelize, DataTypes) => {
         }
       },
       defaultValue: 'https://www.dubaiautodrome.com/wp-content/uploads/2016/08/placeholder.png'
+    },
+    model3d: {
+      type: DataTypes.STRING
+    },
+    description: {
+      type: DataTypes.STRING
     }
   }, {
     sequelize

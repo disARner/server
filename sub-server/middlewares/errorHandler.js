@@ -8,12 +8,6 @@ module.exports = {
         message:errorMessage
       })
     }
-    else if(err.name == 'SequelizeUniqueConstraint') {
-      res.status(400).json({
-        status:400,
-        message:err.errors[0].message
-      })
-    }
     else {
       if(err.status) {
         res.status(err.status).json({

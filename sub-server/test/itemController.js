@@ -60,7 +60,6 @@ describe('testing Item', () => {
             expect(res.body.message[0], 'price cant a negative number')
             expect(res.body.status, 400)
             if(err) return err
-            console.log(res.body,"<<<<<<<<<< ERROR CREATE !!!!!")
           })
         })
       })

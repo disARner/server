@@ -91,7 +91,6 @@ describe('testing Category', () => {
           .get(`/category/${id}`)
           .expect(200)
           .end((err,res) => {
-            console.log(id)
             if(err) return err
             expect(res.body).property('id')
             expect(res.body).property('name')

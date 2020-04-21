@@ -19,7 +19,6 @@ class UserController {
       res.status(201).json({ status: 201, message: 'Success Register' })
     }
     catch (err) {
-      // console.log(err,"<<<<<<<<<<<<<<<<<<<<<< ERR CONTROLLER REG")
       await transaction.rollback()
       next(err)
     }
