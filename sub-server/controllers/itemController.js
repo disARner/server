@@ -7,7 +7,7 @@ class ItemController {
       let { price } = req.body
       price = Number(price)
       const result = await Item.create({
-        name, price, stock, imageUrl, CategoryId
+        name, price, stock, imageUrl, CategoryId, description, model3d
       })
       res.status(200).json(result.dataValues)
     }
@@ -28,7 +28,7 @@ class ItemController {
       let { price } = req.body
       price = Number(price)
       const result = await Item.update({
-        name, price, stock, imageUrl
+        name, price, stock, imageUrl, description, model3d
       }, { where: { id } })
       res.status(200).json({ status: 200, message: 'Success Update' })
     }
