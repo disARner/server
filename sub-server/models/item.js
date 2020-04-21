@@ -68,6 +68,9 @@ module.exports = (sequelize, DataTypes) => {
     },
     model3d: {
       type: DataTypes.STRING
+    },
+    description: {
+      type: DataTypes.STRING
     }
   }, {
     sequelize
