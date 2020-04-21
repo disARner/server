@@ -3,7 +3,7 @@ const { Item } = require('../models')
 class ItemController {
   static async createItem (req,res,next) {
     try {
-      const { name, stock, imageUrl, CategoryId } = req.body
+      const { name, stock, imageUrl, CategoryId, description, model3d } = req.body
       let { price } = req.body
       price = Number(price)
       const result = await Item.create({
@@ -24,7 +24,7 @@ class ItemController {
   static async updateItem (req,res,next) {
     try {
       const { id } = req.params
-      const { name, stock, imageUrl } = req.body
+      const { name, stock, imageUrl, description, model3d } = req.body
       let { price } = req.body
       price = Number(price)
       const result = await Item.update({
