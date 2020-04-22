@@ -4,9 +4,10 @@
   "description": "disARner server\r semangatsss",
   "main": "index.js",
   "scripts": {
-    "start": "node bin/http.js",
+    "start": "NODE_ENV=production&&node bin/http.js",
     "test": "set NODE_ENV=test&&nyc mocha",
-    "dev": "set NODE_ENV=test&&nodemon bin/http.js"
+    "dev": "set NODE_ENV=development&&nodemon bin/http.js",
+    "production": "set NODE_ENV=production&&nodemon bin/http.js"
   },
   "repository": {
     "type": "git",
