@@ -1,1 +1,1 @@
-web: node ./bin/http.js 
+web: node ./sub-server/bin/http.js 
