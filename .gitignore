@@ -1,0 +1,9 @@
+node_modules
+.env
+.env.test
+.env.development
+.nyc_output
+disARner.pem
+new-disARner.pem
+disARner.ppk
+new-disARner.ppk
